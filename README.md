@@ -1,8 +1,8 @@
-# CSV Chat Flow - EDA AI Minds
+# FiscalMind - Inteligência Artificial para Contabilidade
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Sistema inteligente de análise de dados CSV com chat interativo e IA.
+Sistema inteligente de análise de notas fiscais e dados contábeis com chat interativo e IA.
 
 ## 🚀 Quick Start
 
@@ -23,9 +23,11 @@ A aplicação estará disponível em `http://localhost:8080`
 
 ## 🎯 Funcionalidades
 
-- ✅ Upload de arquivos CSV
+- ✅ Upload de arquivos CSV de notas fiscais
 - ✅ **Upload automático para Google Drive** 💾 *(opcional - funciona sem configuração)*
-- ✅ Chat interativo com IA para análise de dados
+- ✅ Chat interativo com IA para análise contábil e fiscal
+- ✅ Análise de impostos e apuração tributária
+- ✅ Geração de relatórios fiscais inteligentes
 - ✅ Detecção automática de porta do backend
 - ✅ Visualização de arquivos processados
 - ✅ Métricas em tempo real

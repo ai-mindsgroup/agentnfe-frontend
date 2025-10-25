@@ -16,9 +16,10 @@ interface UploadResponse {
 
 interface FileUploaderProps {
   onUploadSuccess: (fileId: string, fileName: string) => void;
+  onChatMessage?: (message: string) => void;
 }
 
-const FileUploader = ({ onUploadSuccess }: FileUploaderProps) => {
+const FileUploader = ({ onUploadSuccess, onChatMessage }: FileUploaderProps) => {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<string>('');
   const [driveUploadProgress, setDriveUploadProgress] = useState<number>(0);
@@ -37,7 +38,7 @@ const FileUploader = ({ onUploadSuccess }: FileUploaderProps) => {
     try {
       // 1. Upload para o backend (processamento de dados)
       setUploadProgress('Enviando para o servidor...');
-      const response = await axios.post<UploadResponse>('/csv/upload', formData, {
+      const response = await axios.post<UploadResponse>('/upload/notas/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -88,6 +89,12 @@ const FileUploader = ({ onUploadSuccess }: FileUploaderProps) => {
       
       setTimeout(() => {
         onUploadSuccess(response.data.file_id, response.data.filename);
+        
+        // Envia mensagem automática para o chat
+        if (onChatMessage) {
+          onChatMessage(`📄 Arquivo "${response.data.filename}" foi carregado com sucesso! ${response.data.rows.toLocaleString()} linhas processadas. Agora você pode fazer perguntas sobre os dados.`);
+        }
+        
         setUploadProgress('');
         setDriveUploadProgress(0);
       }, 1500);
@@ -159,7 +166,7 @@ const FileUploader = ({ onUploadSuccess }: FileUploaderProps) => {
                 <Upload className="h-12 w-12 text-muted-foreground" />
                 <div>
                   <div className="text-lg font-medium text-foreground">
-                    Arraste seu arquivo CSV aqui
+                    Arraste seu arquivo CSV de notas fiscais aqui
                   </div>
                   <div className="text-sm text-muted-foreground mt-2">
                     ou clique para selecionar
@@ -172,7 +179,7 @@ const FileUploader = ({ onUploadSuccess }: FileUploaderProps) => {
                   )}
                 </div>
                 <div className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">
-                  Apenas arquivos .csv • Salvo no Google Drive
+                  Apenas arquivos .csv • Backup automático no Drive
                 </div>
               </>
             )}

@@ -15,13 +15,15 @@ interface Message {
 interface ChatInterfaceProps {
   fileId?: string;
   fileName?: string;
+  externalMessage?: string;
+  onMessageProcessed?: () => void;
 }
 
-const ChatInterface = ({ fileId, fileName }: ChatInterfaceProps) => {
+const ChatInterface = ({ fileId, fileName, externalMessage, onMessageProcessed }: ChatInterfaceProps) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       type: 'bot',
-      text: 'Olá! Envie um arquivo CSV e faça perguntas sobre os dados. Posso ajudar com análises e insights.',
+      text: 'Olá! Envie seu arquivo CSV de notas fiscais e faça perguntas sobre os dados. Posso ajudar com análises contábeis, apuração de impostos e geração de relatórios.',
       timestamp: new Date(),
     },
   ]);
@@ -37,6 +39,23 @@ const ChatInterface = ({ fileId, fileName }: ChatInterfaceProps) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Processa mensagens externas (ex: confirmação de upload)
+  useEffect(() => {
+    if (externalMessage) {
+      const systemMessage: Message = {
+        type: 'bot',
+        text: externalMessage,
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, systemMessage]);
+      
+      // Notifica que a mensagem foi processada
+      if (onMessageProcessed) {
+        onMessageProcessed();
+      }
+    }
+  }, [externalMessage, onMessageProcessed]);
 
   const sendMessage = async () => {
     if (!input.trim() || loading) return;

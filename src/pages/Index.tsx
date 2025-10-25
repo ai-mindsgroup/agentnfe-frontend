@@ -11,11 +11,20 @@ const Index = () => {
   const [refreshKey, setRefreshKey] = useState<number>(0);
   const [currentFileId, setCurrentFileId] = useState<string | undefined>();
   const [currentFileName, setCurrentFileName] = useState<string | undefined>();
+  const [chatMessage, setChatMessage] = useState<string>('');
 
   const handleUploadSuccess = (fileId: string, fileName: string): void => {
     setRefreshKey((prev) => prev + 1);
     setCurrentFileId(fileId);
     setCurrentFileName(fileName);
+  };
+
+  const handleChatMessage = (message: string): void => {
+    setChatMessage(message);
+  };
+
+  const handleMessageProcessed = (): void => {
+    setChatMessage('');
   };
 
   const headerGradient: CSSProperties = {
@@ -46,8 +55,8 @@ const Index = () => {
               <Brain className="h-8 w-8 text-white" />
             </div>
             <div className="text-left">
-              <h1 className="text-4xl font-bold text-white">EDA AI Minds</h1>
-              <p className="text-white/90 text-lg">Análise Exploratória de Dados com IA</p>
+              <h1 className="text-4xl font-bold text-white">FiscalMind</h1>
+              <p className="text-white/90 text-lg">Inteligência Artificial para sua Contabilidade</p>
             </div>
           </div>
           <div className="flex justify-center items-center space-x-6 pt-4">
@@ -75,12 +84,15 @@ const Index = () => {
                   <Upload className="h-6 w-6 text-emerald-600" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800">Upload de Dados</h2>
-                  <p className="text-sm text-gray-600">Envie seus arquivos CSV para análise</p>
+                  <h2 className="text-xl font-bold text-gray-800">Upload de Notas Fiscais</h2>
+                  <p className="text-sm text-gray-600">Envie seus arquivos CSV para análise fiscal</p>
                 </div>
               </div>
               <GoogleDriveStatus />
-              <FileUploader onUploadSuccess={handleUploadSuccess} />
+              <FileUploader 
+                onUploadSuccess={handleUploadSuccess} 
+                onChatMessage={handleChatMessage}
+              />
             </section>
 
             {/* Card de Arquivos */}
@@ -93,8 +105,8 @@ const Index = () => {
                   <FileText className="h-6 w-6 text-sky-600" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800">Arquivos Processados</h2>
-                  <p className="text-sm text-gray-600">Seus dados analisados anteriormente</p>
+                  <h2 className="text-xl font-bold text-gray-800">Notas Processadas</h2>
+                  <p className="text-sm text-gray-600">Seus arquivos fiscais analisados</p>
                 </div>
               </div>
               <div className="max-h-80 overflow-y-auto">
@@ -134,8 +146,8 @@ const Index = () => {
                     <BarChart3 className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-gray-800">Dashboard de Métricas</h2>
-                    <p className="text-sm text-gray-600">Análises detalhadas dos seus dados</p>
+                    <h2 className="text-xl font-bold text-gray-800">Dashboard Fiscal</h2>
+                    <p className="text-sm text-gray-600">Métricas e análises das suas notas fiscais</p>
                   </div>
                 </div>
                 {currentFileName && (
@@ -162,16 +174,21 @@ const Index = () => {
                   <MessageCircle className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800">Assistente de IA</h2>
+                  <h2 className="text-xl font-bold text-gray-800">Assistente Fiscal IA</h2>
                   <p className="text-sm text-gray-600">
                     {currentFileName 
-                      ? `Converse sobre: ${currentFileName}` 
-                      : 'Faça perguntas sobre seus dados'
+                      ? `Analisando: ${currentFileName}` 
+                      : 'Faça perguntas sobre suas notas fiscais'
                     }
                   </p>
                 </div>
               </div>
-              <ChatInterface fileId={currentFileId} fileName={currentFileName} />
+              <ChatInterface 
+                fileId={currentFileId} 
+                fileName={currentFileName}
+                externalMessage={chatMessage}
+                onMessageProcessed={handleMessageProcessed}
+              />
             </section>
 
             {/* Informações Adicionais */}
@@ -196,16 +213,16 @@ const Index = () => {
         <footer className="text-center py-6 border-t border-emerald-100">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <p className="text-gray-700 font-medium mb-4 md:mb-0">
-              EDA AI Minds • Análise Exploratória de Dados com IA
+              FiscalMind • Inteligência Artificial para Contabilidade
             </p>
             <div className="flex items-center space-x-4 text-sm text-gray-600">
               <div className="flex items-center space-x-1">
                 <Cpu className="h-4 w-4 text-emerald-600" />
-                <span>Inteligência Artificial</span>
+                <span>IA Contábil</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Database className="h-4 w-4 text-sky-600" />
-                <span>Análise de Dados</span>
+                <span>Análise Fiscal</span>
               </div>
             </div>
           </div>
