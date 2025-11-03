@@ -28,161 +28,138 @@ const Index = () => {
   };
 
   const headerGradient: CSSProperties = {
-    background: 'linear-gradient(135deg, #059669 0%, #0ea5e9 100%)',
+    background: 'linear-gradient(135deg, #1e40af 0%, #7e22ce 100%)',
   };
 
-  const cardStyle: CSSProperties = {
+  const primaryCardStyle: CSSProperties = {
     background: 'rgba(255, 255, 255, 0.98)',
-    border: '1px solid rgba(5, 150, 105, 0.1)',
-    boxShadow: '0 4px 6px -1px rgba(5, 150, 105, 0.1)',
+    border: '2px solid rgba(30, 64, 175, 0.15)',
+    boxShadow: '0 8px 25px -8px rgba(30, 64, 175, 0.3)',
+  };
+
+  const secondaryCardStyle: CSSProperties = {
+    background: 'rgba(255, 255, 255, 0.95)',
+    border: '1px solid rgba(30, 64, 175, 0.1)',
+    boxShadow: '0 4px 12px -4px rgba(30, 64, 175, 0.2)',
   };
 
   const accentStyle: CSSProperties = {
-    background: 'linear-gradient(135deg, #0ea5e9, #059669)',
+    background: 'linear-gradient(135deg, #7e22ce, #1e40af)',
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-sky-50 to-white">
-      <div className="max-w-6xl mx-auto px-4 py-6 space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
         
-        {/* Header Principal */}
+        {/* Header Principal Destacado */}
         <header 
-          className="rounded-2xl p-8 text-center space-y-4 shadow-lg"
+          className="rounded-3xl p-10 text-center space-y-6 shadow-2xl mb-8"
           style={headerGradient}
         >
-          <div className="flex items-center justify-center space-x-4">
-            <div className="p-3 rounded-2xl bg-white/20 backdrop-blur-sm">
-              <Brain className="h-8 w-8 text-white" />
+          <div className="flex items-center justify-center space-x-6">
+            <div className="p-4 rounded-3xl bg-white/25 backdrop-blur-md border border-white/30">
+              <Brain className="h-12 w-12 text-white" />
             </div>
             <div className="text-left">
-              <h1 className="text-4xl font-bold text-white">FiscalMind</h1>
-              <p className="text-white/90 text-lg">Inteligência Artificial para sua Contabilidade</p>
+              <h1 className="text-5xl font-bold text-white mb-2">FiscalMind</h1>
+              <p className="text-white/95 text-xl font-light">Inteligência Artificial Avançada para sua Contabilidade</p>
             </div>
           </div>
-          <div className="flex justify-center items-center space-x-6 pt-4">
+          <div className="flex justify-center items-center space-x-8 pt-6">
             <HealthStatus />
-            <div className="flex items-center space-x-2 text-white/90">
+            <div className="flex items-center space-x-3 text-white/95 bg-white/20 px-4 py-2 rounded-full">
               <Zap className="h-5 w-5" />
-              <span className="font-medium">Processamento em Tempo Real</span>
+              <span className="font-semibold">Processamento em Tempo Real</span>
             </div>
           </div>
         </header>
 
-        {/* Grid Principal */}
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+        {/* Grid Principal com Layout Focado */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
           
-          {/* Coluna Lateral - Funcionalidades de Dados */}
-          <div className="xl:col-span-4 space-y-6">
+          {/* Coluna Esquerda - Upload e Arquivos (Destaque) */}
+          <div className="xl:col-span-5 space-y-8">
             
-            {/* Card de Upload */}
+            {/* Card de Upload - Principal */}
             <section 
-              className="rounded-xl p-6 space-y-4"
-              style={cardStyle}
+              className="rounded-2xl p-8 space-y-6 transition-all duration-300 hover:shadow-xl"
+              style={primaryCardStyle}
             >
-              <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-lg bg-emerald-500/20">
-                  <Upload className="h-6 w-6 text-emerald-600" />
+              <div className="flex items-center space-x-4">
+                <div 
+                  className="p-3 rounded-xl"
+                  style={accentStyle}
+                >
+                  <Upload className="h-7 w-7 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-800">Upload de Notas Fiscais</h2>
-                  <p className="text-sm text-gray-600">Envie seus arquivos CSV para análise fiscal</p>
+                  <h2 className="text-2xl font-bold text-gray-900">Upload de Notas Fiscais</h2>
+                  <p className="text-base text-gray-700 mt-1">Envie seus arquivos CSV para análise fiscal inteligente</p>
                 </div>
               </div>
-              <GoogleDriveStatus />
-              <FileUploader 
-                onUploadSuccess={handleUploadSuccess} 
-                onChatMessage={handleChatMessage}
-              />
+              
+              <div className="space-y-4">
+                <GoogleDriveStatus />
+                <FileUploader 
+                  onUploadSuccess={handleUploadSuccess} 
+                  onChatMessage={handleChatMessage}
+                />
+              </div>
             </section>
 
-            {/* Card de Arquivos */}
+            {/* Card de Arquivos Processados */}
             <section 
-              className="rounded-xl p-6 space-y-4"
-              style={cardStyle}
+              className="rounded-2xl p-6 space-y-4"
+              style={secondaryCardStyle}
             >
               <div className="flex items-center space-x-3">
-                <div className="p-2 rounded-lg bg-sky-500/20">
-                  <FileText className="h-6 w-6 text-sky-600" />
+                <div className="p-2 rounded-lg bg-purple-500/20">
+                  <FileText className="h-6 w-6 text-purple-600" />
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-gray-800">Notas Processadas</h2>
                   <p className="text-sm text-gray-600">Seus arquivos fiscais analisados</p>
                 </div>
               </div>
-              <div className="max-h-80 overflow-y-auto">
+              <div className="max-h-96 overflow-y-auto">
                 <FilesList refreshTrigger={refreshKey} />
               </div>
             </section>
-
-            {/* Cards de Status do Sistema */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-lg p-4 text-center bg-white/80 border border-emerald-100">
-                <Database className="h-6 w-6 text-emerald-600 mx-auto mb-2" />
-                <h3 className="text-sm font-semibold text-gray-800">Processamento</h3>
-                <p className="text-xs text-gray-600">Ativo</p>
-              </div>
-              <div className="rounded-lg p-4 text-center bg-white/80 border border-sky-100">
-                <Cpu className="h-6 w-6 text-sky-600 mx-auto mb-2" />
-                <h3 className="text-sm font-semibold text-gray-800">IA</h3>
-                <p className="text-xs text-gray-600">Online</p>
-              </div>
-            </div>
           </div>
 
-          {/* Coluna Principal - Análise e Chat */}
-          <div className="xl:col-span-8 space-y-6">
+          {/* Coluna Direita - Chat e Análise (Destaque) */}
+          <div className="xl:col-span-7 space-y-8">
             
-            {/* Card de Métricas */}
+            {/* Card de Chat com IA - Principal */}
             <section 
-              className="rounded-xl p-6"
-              style={cardStyle}
+              className="rounded-2xl p-8 space-y-6 transition-all duration-300 hover:shadow-xl"
+              style={primaryCardStyle}
             >
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-3">
-                  <div 
-                    className="p-2 rounded-lg"
-                    style={accentStyle}
-                  >
-                    <BarChart3 className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-xl font-bold text-gray-800">Dashboard Fiscal</h2>
-                    <p className="text-sm text-gray-600">Métricas e análises das suas notas fiscais</p>
-                  </div>
-                </div>
-                {currentFileName && (
-                  <div className="hidden lg:flex items-center space-x-2 bg-emerald-50 px-3 py-1 rounded-full">
-                    <span className="text-xs font-medium text-emerald-700">
-                      Ativo: {currentFileName}
-                    </span>
-                  </div>
-                )}
-              </div>
-              <MetricsBar key={`metrics-${refreshKey}`} />
-            </section>
-
-            {/* Card de Chat com IA */}
-            <section 
-              className="rounded-xl p-6 space-y-4"
-              style={cardStyle}
-            >
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-4">
                 <div 
-                  className="p-2 rounded-lg"
+                  className="p-3 rounded-xl"
                   style={accentStyle}
                 >
-                  <MessageCircle className="h-6 w-6 text-white" />
+                  <MessageCircle className="h-7 w-7 text-white" />
                 </div>
-                <div>
-                  <h2 className="text-xl font-bold text-gray-800">Assistente Fiscal IA</h2>
-                  <p className="text-sm text-gray-600">
+                <div className="flex-1">
+                  <h2 className="text-2xl font-bold text-gray-900">Assistente Fiscal IA</h2>
+                  <p className="text-base text-gray-700 mt-1">
                     {currentFileName 
                       ? `Analisando: ${currentFileName}` 
                       : 'Faça perguntas sobre suas notas fiscais'
                     }
                   </p>
                 </div>
+                {currentFileName && (
+                  <div className="hidden lg:flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-full border border-blue-200">
+                    <span className="text-sm font-semibold text-blue-700">
+                      Arquivo Ativo
+                    </span>
+                  </div>
+                )}
               </div>
+              
               <ChatInterface 
                 fileId={currentFileId} 
                 fileName={currentFileName}
@@ -191,38 +168,58 @@ const Index = () => {
               />
             </section>
 
-            {/* Informações Adicionais */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="rounded-lg p-4 bg-white/80 border border-emerald-100 text-center">
-                <div className="text-2xl font-bold text-emerald-600 mb-1">100%</div>
-                <div className="text-xs text-gray-600">Precisão</div>
+            {/* Card de Métricas */}
+            <section 
+              className="rounded-2xl p-6 space-y-4"
+              style={secondaryCardStyle}
+            >
+              <div className="flex items-center space-x-3">
+                <div className="p-2 rounded-lg bg-blue-500/20">
+                  <BarChart3 className="h-6 w-6 text-blue-600" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold text-gray-800">Dashboard Fiscal</h2>
+                  <p className="text-sm text-gray-600">Métricas e análises das suas notas fiscais</p>
+                </div>
               </div>
-              <div className="rounded-lg p-4 bg-white/80 border border-sky-100 text-center">
-                <div className="text-2xl font-bold text-sky-600 mb-1">24/7</div>
-                <div className="text-xs text-gray-600">Disponível</div>
+              <MetricsBar key={`metrics-${refreshKey}`} />
+            </section>
+
+            {/* Status do Sistema */}
+            <div className="grid grid-cols-3 gap-4">
+              <div className="rounded-xl p-5 text-center bg-white/90 border border-blue-200 transition-colors hover:bg-blue-50">
+                <Database className="h-7 w-7 text-blue-600 mx-auto mb-3" />
+                <h3 className="text-sm font-semibold text-gray-800">Processamento</h3>
+                <p className="text-xs text-gray-600 mt-1">Ativo</p>
               </div>
-              <div className="rounded-lg p-4 bg-white/80 border border-emerald-100 text-center">
-                <div className="text-2xl font-bold text-emerald-600 mb-1">Rápido</div>
-                <div className="text-xs text-gray-600">Processamento</div>
+              <div className="rounded-xl p-5 text-center bg-white/90 border border-purple-200 transition-colors hover:bg-purple-50">
+                <Cpu className="h-7 w-7 text-purple-600 mx-auto mb-3" />
+                <h3 className="text-sm font-semibold text-gray-800">IA</h3>
+                <p className="text-xs text-gray-600 mt-1">Online</p>
+              </div>
+              <div className="rounded-xl p-5 text-center bg-white/90 border border-blue-200 transition-colors hover:bg-blue-50">
+                <Zap className="h-7 w-7 text-blue-600 mx-auto mb-3" />
+                <h3 className="text-sm font-semibold text-gray-800">Velocidade</h3>
+                <p className="text-xs text-gray-600 mt-1">Rápido</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Rodapé */}
-        <footer className="text-center py-6 border-t border-emerald-100">
+        <footer className="text-center py-8 border-t border-blue-200 mt-12">
           <div className="flex flex-col md:flex-row items-center justify-between">
-            <p className="text-gray-700 font-medium mb-4 md:mb-0">
+            <p className="text-gray-800 font-semibold text-lg mb-4 md:mb-0">
               FiscalMind • Inteligência Artificial para Contabilidade
             </p>
-            <div className="flex items-center space-x-4 text-sm text-gray-600">
-              <div className="flex items-center space-x-1">
-                <Cpu className="h-4 w-4 text-emerald-600" />
-                <span>IA Contábil</span>
+            <div className="flex items-center space-x-6 text-sm text-gray-700">
+              <div className="flex items-center space-x-2">
+                <Cpu className="h-4 w-4 text-blue-600" />
+                <span className="font-medium">IA Contábil</span>
               </div>
-              <div className="flex items-center space-x-1">
-                <Database className="h-4 w-4 text-sky-600" />
-                <span>Análise Fiscal</span>
+              <div className="flex items-center space-x-2">
+                <Database className="h-4 w-4 text-purple-600" />
+                <span className="font-medium">Análise Fiscal</span>
               </div>
             </div>
           </div>
