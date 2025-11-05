@@ -47,6 +47,13 @@ const Index = () => {
     background: 'linear-gradient(135deg, #7e22ce, #1e40af)',
   };
 
+  const [refreshFilesKey, setRefreshFilesKey] = useState(0);
+
+  const handleUploadComplete = () => {
+    console.log('🔄 Atualizando lista de arquivos...');
+    setRefreshFilesKey(prev => prev + 1);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-white">
       <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
@@ -100,9 +107,10 @@ const Index = () => {
               
               <div className="space-y-4">
                 <GoogleDriveStatus />
-                <FileUploader 
-                  onUploadSuccess={handleUploadSuccess} 
+                <FileUploader
+                  onUploadSuccess={handleUploadSuccess}
                   onChatMessage={handleChatMessage}
+                  onUploadComplete={handleUploadComplete} // ← PROP NOVA
                 />
               </div>
             </section>
